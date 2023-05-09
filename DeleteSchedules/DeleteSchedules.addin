@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command DeleteSchedules</Text>
+    <Description>Some description for DeleteSchedules</Description>
+    <Assembly>DeleteSchedules.dll</Assembly>
+    <FullClassName>DeleteSchedules.Command</FullClassName>
+    <ClientId>00367ec1-f32c-42f7-899a-f4fdc8ef7d61</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application DeleteSchedules</Name>
+    <Assembly>DeleteSchedules.dll</Assembly>
+    <FullClassName>DeleteSchedules.App</FullClassName>
+    <ClientId>dbe3331e-ffba-4260-849e-2daef7090d10</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+</RevitAddIns>
