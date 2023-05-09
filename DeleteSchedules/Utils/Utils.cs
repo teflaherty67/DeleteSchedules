@@ -20,6 +20,16 @@ namespace DeleteSchedules
             return currentPanel;
         }
 
+        internal static List<ViewSchedule> GetAllSchedules(Document doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static List<ScheduleSheetInstance> GetAllScheduleSheetInstances(Document doc)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static RibbonPanel GetRibbonPanelByName(UIControlledApplication app, string tabName, string panelName)
         {
             foreach (RibbonPanel tmpPanel in app.GetRibbonPanels(tabName))
@@ -29,6 +39,11 @@ namespace DeleteSchedules
             }
 
             return null;
+        }
+
+        internal static List<ViewSchedule> GetSchedulesNotOnSheets(Document doc, List<ViewSchedule> allSchedules, List<ScheduleSheetInstance> sheetInstances)
+        {
+            throw new NotImplementedException();
         }
     }
 }

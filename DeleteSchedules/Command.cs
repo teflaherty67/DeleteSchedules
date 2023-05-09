@@ -26,6 +26,13 @@ namespace DeleteSchedules
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
+            // get all the schedules
+
+            // get all the sheet schedule instances
+
+            // compare the names on the 2 lists,
+            // if there is not a match add it to Schedules to delete list
+
             List<ViewSchedule> allSchedules = Utils.GetAllSchedules(doc);
 
             List<ScheduleSheetInstance> sheetInstances = Utils.GetAllScheduleSheetInstances(doc);
