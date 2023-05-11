@@ -44,10 +44,13 @@ namespace DeleteSchedules
             {
                 if (curView.ViewType == ViewType.Schedule)
                 {
-                    if (curView.Name.Contains("Revision Schedule"))
-                        continue;
-                    else
-                        m_schedList.Add((ViewSchedule)curView);
+                    if(curView.IsTemplate == false)
+                    {
+                        if (curView.Name.Contains("Revision Schedule"))
+                            continue;
+                        else
+                            m_schedList.Add((ViewSchedule)curView);
+                    }                    
                 }
             }
 
