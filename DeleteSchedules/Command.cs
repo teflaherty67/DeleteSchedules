@@ -27,28 +27,36 @@ namespace DeleteSchedules
             Document doc = uidoc.Document;
 
             // get all the schedules
+            // get the names of all the schedules
 
             // get all the sheet schedule instances
+            // get the names of all the sheet schedule instances
 
             // compare the names on the 2 lists,
             // if there is not a match add it to Schedules to delete list
 
-            List<ViewSchedule> allSchedules = Utils.GetAllSchedules(doc);
+            // get all the schedule names
 
-            List<ScheduleSheetInstance> sheetInstances = Utils.GetAllScheduleSheetInstances(doc);
+            List<string> schedNames = Utils.GetAllScheduleNames(doc);
 
-            List<ViewSchedule> SchedulesToDelete = Utils.GetSchedulesNotOnSheets(doc, allSchedules, sheetInstances);
+            List<string> schedInstances = Utils.GetAllSSINames(doc);
 
-            using(Transaction t = new Transaction(doc))
+            List<string> schedNotUsed = Utils.GetSchedulesNotUsed(schedNames, schedInstances);
+
+            List<ViewSchedule> SchedulesToDelete = Utils.GetSchedulesToDelete(schedNotUsed);
+
+            using (Transaction t = new Transaction(doc))
             {
-                t.Start("Delete unused schedules");
+                t.Start("Delete Unused Schedules");
 
-                foreach (ViewSchedule schedule in SchedulesToDelete)
+                foreach (ViewSchedule curSched in SchedulesToDelete)
                 {
-                    doc.Delete(schedule.Id);
+                    doc.Delete(curSched.Id);
                 }
-            }
 
+                t.Commit();
+            }            
+            
             return Result.Succeeded;
         }
 

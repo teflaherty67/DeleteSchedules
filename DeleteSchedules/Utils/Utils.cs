@@ -50,38 +50,52 @@ namespace DeleteSchedules
             return m_schedList;
         }
 
-        internal static List<ScheduleSheetInstance> GetAllScheduleSheetInstances(Document doc)
+        internal static List<string> GetAllSSINames(Document doc)
         {
             FilteredElementCollector m_colSSI = new FilteredElementCollector(doc);
             m_colSSI.OfClass(typeof(ScheduleSheetInstance));
 
-            List<ScheduleSheetInstance> m_returnList = new List<ScheduleSheetInstance>();           
-
-            throw new NotImplementedException();
-        }
-
-        
-
-        internal static List<ViewSchedule> GetSchedulesNotOnSheets(Document doc, List<ViewSchedule> allSchedules, List<ScheduleSheetInstance> sheetInstances)
-        {
+            List<string> m_returnList = new List<string>();
             
-            
-            throw new NotImplementedException();
-        }
-
-        internal static List<ViewSheet> GetAllSheets(Document doc)
-        {
-            //get all sheets
-            FilteredElementCollector m_colViews = new FilteredElementCollector(doc);
-            m_colViews.OfCategory(BuiltInCategory.OST_Sheets);
-
-            List<ViewSheet> m_sheets = new List<ViewSheet>();
-            foreach (ViewSheet x in m_colViews.ToElements())
+            foreach(ScheduleSheetInstance curInstance in m_colSSI)
             {
-                m_sheets.Add(x);
+                string schedName = curInstance.Name as string;
+                m_returnList.Add(schedName);
+
+                return m_returnList;
             }
 
-            return m_sheets;
+            return m_returnList;
+        } 
+
+        internal static List<string> GetAllScheduleNames(Document doc)
+        {
+            List<ViewSchedule> m_schedList = GetAllSchedules(doc);
+
+            List<string> m_Names = new List<string>();
+
+            foreach(ViewSchedule curSched in m_schedList)
+            {
+                m_Names.Add(curSched.Name);                
+            }
+
+            return m_Names;
+        }
+
+        internal static List<string> GetSchedulesNotUsed(List<string> schedNames, List<string> schedInstances)
+        {
+            IEnumerable <string> m_returnList;
+
+            m_returnList = schedNames.Except(schedInstances);
+
+            return m_returnList.ToList();
+        }
+
+        internal static List<ViewSchedule> GetSchedulesToDelete(List<string> schedNotUsed)
+        {
+            // how to convert list of strings back into list of view schedules
+            
+            throw new NotImplementedException();
         }
     }
 }
