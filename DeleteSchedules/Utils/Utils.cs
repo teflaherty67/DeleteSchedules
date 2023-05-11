@@ -37,13 +37,17 @@ namespace DeleteSchedules
 
             FilteredElementCollector curCollector = new FilteredElementCollector(doc);
             curCollector.OfClass(typeof(ViewSchedule));
+            curCollector.WhereElementIsNotElementType();
 
             //loop through views and check if schedule - if so then put into schedule list
             foreach (ViewSchedule curView in curCollector)
             {
                 if (curView.ViewType == ViewType.Schedule)
                 {
-                    m_schedList.Add((ViewSchedule)curView);
+                    if (curView.Name.Contains("Revision Schedule"))
+                        continue;
+                    else
+                        m_schedList.Add((ViewSchedule)curView);
                 }
             }
 
@@ -86,16 +90,46 @@ namespace DeleteSchedules
         {
             IEnumerable <string> m_returnList;
 
-            m_returnList = schedNames.Except(schedInstances);
+            m_returnList = schedInstances.Except(schedNames);
 
             return m_returnList.ToList();
         }
 
-        internal static List<ViewSchedule> GetSchedulesToDelete(List<string> schedNotUsed)
+        internal static List<ViewSchedule> GetSchedulesToDelete(Document doc, List<string> schedNotUsed)
         {
-            // how to convert list of strings back into list of view schedules
-            
-            throw new NotImplementedException();
+            List<ViewSchedule> m_returnList = new List<ViewSchedule>();
+
+            foreach(string schedName in schedNotUsed)
+            {
+                string curName = schedName;
+
+                ViewSchedule curSched = GetViewScheduleByName(doc, curName);
+
+                if(curSched != null)
+                {
+                    m_returnList.Add(curSched);
+                }
+            }
+
+            return m_returnList;
         }
+
+        internal static ViewSchedule GetViewScheduleByName(Document doc, string viewScheduleName)
+        {
+            List<ViewSchedule> m_SchedList = GetAllSchedules(doc);
+
+            ViewSchedule m_viewSchedNotFound = null;
+
+            foreach (ViewSchedule curViewSched in m_SchedList)
+            {
+                if (curViewSched.Name == viewScheduleName)
+                {
+                    return curViewSched;
+                }
+            }
+
+            return m_viewSchedNotFound;
+        }
+
     }
 }

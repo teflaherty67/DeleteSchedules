@@ -43,7 +43,7 @@ namespace DeleteSchedules
 
             List<string> schedNotUsed = Utils.GetSchedulesNotUsed(schedNames, schedInstances);
 
-            List<ViewSchedule> SchedulesToDelete = Utils.GetSchedulesToDelete(schedNotUsed);
+            List<ViewSchedule> SchedulesToDelete = Utils.GetSchedulesToDelete(doc, schedNotUsed);
 
             using (Transaction t = new Transaction(doc))
             {
