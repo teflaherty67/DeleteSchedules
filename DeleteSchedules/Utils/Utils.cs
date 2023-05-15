@@ -67,9 +67,7 @@ namespace DeleteSchedules
             foreach(ScheduleSheetInstance curInstance in m_colSSI)
             {
                 string schedName = curInstance.Name as string;
-                m_returnList.Add(schedName);
-
-                return m_returnList;
+                m_returnList.Add(schedName);               
             }
 
             return m_returnList;
