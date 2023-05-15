@@ -46,7 +46,7 @@ namespace DeleteSchedules
                 {
                     if(curView.IsTemplate == false)
                     {
-                        if (curView.Name.Contains("Revision Schedule"))
+                        if (curView.Name.Contains("<") && curView.Name.Contains(">"))
                             continue;
                         else
                             m_schedList.Add((ViewSchedule)curView);
@@ -91,7 +91,7 @@ namespace DeleteSchedules
         {
             IEnumerable <string> m_returnList;
 
-            m_returnList = schedInstances.Except(schedNames);
+            m_returnList = schedNames.Except(schedInstances);
 
             return m_returnList.ToList();
         }
